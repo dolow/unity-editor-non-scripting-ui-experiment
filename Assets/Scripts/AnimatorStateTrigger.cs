@@ -6,20 +6,23 @@
  */
 public class AnimatorStateTrigger : MonoBehaviour
 {
-    public const string STATE_INDEX = "stateIndex"; // TODO: 遊ばせるか後で考える
-    public const string STATE_COUNT = "stateCount"; // TODO: 遊ばせるか後で考える
+    public const string STATE_INDEX         = "stateIndex";
+    public const string STATE_COUNT         = "stateCount";
+    public const string TRIGGER_SINGLE_SHOT = "singleShot";
+
+    public GameObject target = null;
 
     /**
-     * ボタンのクリックなど、任意の契機で実行できる
+     * 次のステートに遷移させる
      */
     public void RequestTransition()
     {
-        this.RequestTransition(this.gameObject);
+        this.RequestTransition(this.target);
     }
     public void RequestTransition(GameObject gameObject)
     {
-        // Animator コンポーネントがあるかどうか
-        Animator animator = gameObject.GetComponent<Animator>();
+        // Animator コンポーネントの取得
+        Animator animator = this.GetTargetAnimator(gameObject);
 
         // なかったらエラーになるので処理終了
         if (!animator) return;
@@ -41,5 +44,63 @@ public class AnimatorStateTrigger : MonoBehaviour
 
         // 新しいインデックスをセットする
         animator.SetInteger(STATE_INDEX, index);
+    }
+
+    /**
+     * 任意のステートに遷移させる
+     */
+    public void RequestState(int index)
+    {
+        this.RequestState(this.target, index);
+    }
+    public void RequestState(GameObject gameObject, int index)
+    {
+        // Animator コンポーネントの取得
+        Animator animator = this.GetTargetAnimator(gameObject);
+
+        // なかったらエラーになるので処理終了
+        if (!animator) return;
+
+        // 現在のステートのインデックスを変える
+        animator.SetInteger(STATE_INDEX, index);
+    }
+
+    /**
+     * Single Shot ステートに遷移させる
+     */
+    public void RequestSingleShot()
+    {
+        this.RequestSingleShot(this.target);
+    }
+    public void RequestSingleShot(GameObject gameObject)
+    {
+        Debug.Log("RequestSingleShot");
+        // Animator コンポーネントの取得
+        Animator animator = this.GetTargetAnimator(gameObject);
+
+        // なかったらエラーになるので処理終了
+        if (!animator) return;
+
+        // singleShot をトリガーする
+        animator.SetTrigger(TRIGGER_SINGLE_SHOT);
+
+        // 複数の Single Shot を持ちたい場合は、AnimatorController に必要分のステートを加える
+        // inspector から Single Shot の番号を指定できるようにする
+    }
+
+
+    /**
+     * 利用する Animator を返す
+     */
+    private Animator GetTargetAnimator(GameObject obj)
+    {
+        // 存在しない場合は 自身の gameObject を target にする
+        if (obj == null)
+        {
+            obj = this.gameObject;
+        }
+
+        // Animator コンポーネントがあるかどうか
+        return obj.GetComponent<Animator>();
     }
 }
