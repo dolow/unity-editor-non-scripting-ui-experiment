@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -8,8 +9,8 @@ using UnityEngine.Events;
  */
 public class AnimationSequence : MonoBehaviour
 {
-    // 順番に実行した処理を設定する
-    public UnityEvent[] animations = { };
+    // 順番に実行した処理を設定するsingle
+    public List<UnityEvent> animations = new List<UnityEvent>();
     // 現在どこまで処理しているかのインデックス
     private int currentIndex  = 0;
 
@@ -24,26 +25,20 @@ public class AnimationSequence : MonoBehaviour
     }
 
     /**
-     * GameObject を有効にする
+     * 指定秒数待って次の処理を実行する
      */
-    public void ActivateGameObject(GameObject obj)
+    public void Wait(float seconds)
     {
-        obj.SetActive(true);
-    }
-    /**
-     * GameObject を無効にする
-     */
-    public void InactivateGameObject(GameObject obj)
-    {
-        obj.SetActive(false);
+        StartCoroutine(this.RunNext(seconds));
     }
 
     /**
      * 指定秒数待って次の処理を実行する
      */
-    public void RunNextAfter(float seconds)
+    public void Next()
     {
-        StartCoroutine(this.RunNext(seconds));
+        this.currentIndex++;
+        this.TryRun();
     }
 
     /**
@@ -51,7 +46,7 @@ public class AnimationSequence : MonoBehaviour
      */
     private void TryRun()
     {
-        if (this.currentIndex >= this.animations.Length)
+        if (this.currentIndex >= this.animations.Count)
         {
             return;
         }
@@ -64,7 +59,6 @@ public class AnimationSequence : MonoBehaviour
     {
         yield return new WaitForSeconds(seconds);
 
-        this.currentIndex++;
-        this.TryRun();
+        this.Next();
     }
 }

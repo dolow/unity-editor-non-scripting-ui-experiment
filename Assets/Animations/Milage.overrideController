@@ -6,12 +6,10 @@ AnimatorOverrideController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: SlideHorizontal
+  m_Name: Milage
   m_Controller: {fileID: 9100000, guid: bfeb0ffaed1f348fabdb3c6430f5cd1c, type: 2}
   m_Clips:
   - m_OriginalClip: {fileID: 7400000, guid: a8d4b43a72d284e4dac0c123d3c0b964, type: 2}
-    m_OverrideClip: {fileID: 7400000, guid: 54542e5ab11124203b5d53bac47663bb, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 61f8df4c48f9e4c78871a1a0b33b2681, type: 2}
   - m_OriginalClip: {fileID: 7400000, guid: f243b0e284c8443798fd632528769367, type: 2}
-    m_OverrideClip: {fileID: 7400000, guid: 757ef8ad6d3de4585ac9fecdd8d236b3, type: 2}
-  - m_OriginalClip: {fileID: 7400000, guid: c2e8018abcb194918a824c83f54efa05, type: 2}
-    m_OverrideClip: {fileID: 7400000, guid: 379c691dd71d6402fb64aff9cadcab4c, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: f3607f16454ec4d7f9568401cf8c10ba, type: 2}
