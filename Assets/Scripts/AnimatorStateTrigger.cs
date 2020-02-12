@@ -46,48 +46,6 @@ public class AnimatorStateTrigger : MonoBehaviour
         animator.SetInteger(STATE_INDEX, index);
     }
 
-    /**
-     * 任意のステートに遷移させる
-     */
-    public void RequestState(int index)
-    {
-        this.RequestState(this.target, index);
-    }
-    public void RequestState(GameObject gameObject, int index)
-    {
-        // Animator コンポーネントの取得
-        Animator animator = this.GetTargetAnimator(gameObject);
-
-        // なかったらエラーになるので処理終了
-        if (!animator) return;
-
-        // 現在のステートのインデックスを変える
-        animator.SetInteger(STATE_INDEX, index);
-    }
-
-    /**
-     * Single Shot ステートに遷移させる
-     */
-    public void RequestSingleShot()
-    {
-        this.RequestSingleShot(this.target);
-    }
-    public void RequestSingleShot(GameObject gameObject)
-    {
-        Debug.Log("RequestSingleShot");
-        // Animator コンポーネントの取得
-        Animator animator = this.GetTargetAnimator(gameObject);
-
-        // なかったらエラーになるので処理終了
-        if (!animator) return;
-
-        // singleShot をトリガーする
-        animator.SetTrigger(TRIGGER_SINGLE_SHOT);
-
-        // 複数の Single Shot を持ちたい場合は、AnimatorController に必要分のステートを加える
-        // inspector から Single Shot の番号を指定できるようにする
-    }
-
 
     /**
      * 利用する Animator を返す
